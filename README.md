@@ -4,7 +4,7 @@
 
 <cite>"You shall not pass!"</cite> - Gandalf
 
-This repository contains a simple boilerplate code to serve as reference material when you need to have authentication
+This repository contains a simple boilerplate code to serve as reference material for when I need to have authentication
 capabilities in a Flutter app, eg: Login screen, authentication data management.
 
 While developing the initial version I am not focusing on making it secure, but with the next versions, I am looking
