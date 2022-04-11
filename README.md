@@ -1,6 +1,6 @@
 # Gandalf
 
-![Gandalf vs train](https://i.makeagif.com/media/6-05-2014/IiYxQq.gif)
+![Gandalf](https://cdn.forums.klei.com/monthly_2017_04/You-shall-not-pass.gif.d2c88335f647298c26b8c2c6247b1f6a.gif)
 
 <cite>"You shall not pass!"</cite> - Gandalf
 
