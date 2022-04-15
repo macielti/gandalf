@@ -15,7 +15,8 @@ class UserIdentityModel extends UserIdentity {
     final Map<String, dynamic> userData = decodedToken['user'];
     return UserIdentityModel(
         id: userData['id'],
-        roles: userData['roles'], // maybe convert the roles values to uppercase
+        roles: userData['roles'].cast<String>(),
+        // maybe convert the roles values to uppercase
         username: userData['username'],
         token: jwToken);
   }
