@@ -9,54 +9,55 @@ class LoginPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: Text('Login'),
-          brightness: Brightness.dark,
-        ),
-        body: Container(
-          padding: EdgeInsets.only(left: 16.0, right: 16.0),
-          child: Form(
-            key: formKey,
-            child: Column(
-              children: [
-                TextFormField(
-                    decoration: InputDecoration(
-                      labelText: 'Username or Email',
-                      hintText: 'example@example.com',
-                    ),
-                    validator: (value) {
-                      if (value!.isEmpty)
-                        return 'You need to provide a proper email or username for this field.';
-                      return null;
-                    }),
-                TextFormField(
+      appBar: AppBar(
+        title: Text('Login'),
+        brightness: Brightness.dark,
+      ),
+      body: Container(
+        padding: EdgeInsets.only(left: 16.0, right: 16.0),
+        child: Form(
+          key: formKey,
+          child: Column(
+            children: [
+              TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Password',
-                    hintText: '******',
+                    labelText: 'Username or Email',
+                    hintText: 'example@example.com',
                   ),
-                  obscureText: true,
                   validator: (value) {
-                    if (value!.isEmpty) {
-                      return "You can't use a empty password.";
-                    } else if (value.length < 6) {
-                      return "The minimum length for the password is 6 characters.";
-                    }
+                    if (value!.isEmpty)
+                      return 'You need to provide a proper email or username for this field.';
                     return null;
-                  },
+                  }),
+              TextFormField(
+                decoration: InputDecoration(
+                  labelText: 'Password',
+                  hintText: '******',
                 ),
-                ButtonLoadingIndicator(
-                  onPressed: () {
-                    if (formKey.currentState!.validate()) {
-                      formKey.currentState!.save();
-                      // exerciseBloc.createExercise(_exerciseName);
-                      // Navigator.pop(context);
-                    }
-                  },
-                  child: Text('Login'),
-                ),
-              ],
-            ),
+                obscureText: true,
+                validator: (value) {
+                  if (value!.isEmpty) {
+                    return "You can't use a empty password.";
+                  } else if (value.length < 6) {
+                    return "The minimum length for the password is 6 characters.";
+                  }
+                  return null;
+                },
+              ),
+              ButtonLoadingIndicator(
+                onPressed: () {
+                  if (formKey.currentState!.validate()) {
+                    formKey.currentState!.save();
+                    // exerciseBloc.createExercise(_exerciseName);
+                    // Navigator.pop(context);
+                  }
+                },
+                child: Text('Login'),
+              ),
+            ],
           ),
-        ));
+        ),
+      ),
+    );
   }
 }
