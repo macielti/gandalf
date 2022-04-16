@@ -44,6 +44,7 @@ class LoginPage extends StatelessWidget {
                   return null;
                 },
               ),
+              SizedBox(height: 10),
               ButtonLoadingIndicator(
                 onPressed: () {
                   if (formKey.currentState!.validate()) {
@@ -54,6 +55,10 @@ class LoginPage extends StatelessWidget {
                 },
                 child: Text('Login'),
               ),
+              ButtonLoadingIndicator(
+                onPressed: () {},
+                child: Text('Crate account'),
+              )
             ],
           ),
         ),

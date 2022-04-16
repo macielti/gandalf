@@ -13,13 +13,11 @@ class ButtonLoadingIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-        padding: const EdgeInsets.all(16.0),
-        child: !loading
-            ? ElevatedButton(
-                onPressed: onPressed,
-                child: child,
-              )
-            : CircularProgressIndicator());
+    return !loading
+        ? ElevatedButton(
+            onPressed: onPressed,
+            child: child,
+          )
+        : CircularProgressIndicator();
   }
 }
