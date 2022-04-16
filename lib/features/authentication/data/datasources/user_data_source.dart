@@ -12,8 +12,9 @@ abstract class UserDataSource {
 }
 
 class UserDataSourceImpl implements UserDataSource {
-  final http.Client client =
-      http.Client(); // receive it through dependency injection
+  UserDataSourceImpl(this.client);
+
+  final http.Client client;
 
   @override
   Future<UserIdentityModel> create({
