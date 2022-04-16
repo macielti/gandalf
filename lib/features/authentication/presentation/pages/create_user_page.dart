@@ -1,10 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:gandalf/features/authentication/presentation/widgets/button_loading_indicator.dart';
 
-class CreateUserPage extends StatelessWidget {
-  CreateUserPage({Key? key}) : super(key: key);
+class CreateUserPage extends StatefulWidget {
+  const CreateUserPage({Key? key}) : super(key: key);
 
+  @override
+  State<CreateUserPage> createState() => _CreateUserPageState();
+}
+
+class _CreateUserPageState extends State<CreateUserPage> {
   final formKey = GlobalKey<FormState>();
+
+  late String _username;
+  late String _email;
+  late String _password;
 
   @override
   Widget build(BuildContext context) {
@@ -20,25 +29,33 @@ class CreateUserPage extends StatelessWidget {
           child: Column(
             children: [
               TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Username',
-                    hintText: 'ednaldo-pereira',
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty)
-                      return 'You need to provide a proper username for this field.';
-                    return null;
-                  }),
+                decoration: InputDecoration(
+                  labelText: 'Username',
+                  hintText: 'ednaldo-pereira',
+                ),
+                validator: (value) {
+                  if (value!.isEmpty)
+                    return 'You need to provide a proper username for this field.';
+                  return null;
+                },
+                onSaved: (value) {
+                  _username = value!;
+                },
+              ),
               TextFormField(
-                  decoration: InputDecoration(
-                    labelText: 'Email',
-                    hintText: 'ednaldo-pereira@example.com',
-                  ),
-                  validator: (value) {
-                    if (value!.isEmpty)
-                      return 'You need to provide a proper email for this field.';
-                    return null;
-                  }),
+                decoration: InputDecoration(
+                  labelText: 'Email',
+                  hintText: 'ednaldo-pereira@example.com',
+                ),
+                validator: (value) {
+                  if (value!.isEmpty)
+                    return 'You need to provide a proper email for this field.';
+                  return null;
+                },
+                onSaved: (value) {
+                  _email = value!;
+                },
+              ),
               TextFormField(
                 decoration: InputDecoration(
                   labelText: 'Password',
@@ -53,6 +70,9 @@ class CreateUserPage extends StatelessWidget {
                   }
                   return null;
                 },
+                onSaved: (value) {
+                  _password = value!;
+                },
               ),
               SizedBox(height: 10),
               ButtonLoadingIndicator(
@@ -60,7 +80,7 @@ class CreateUserPage extends StatelessWidget {
                   if (formKey.currentState!.validate()) {
                     formKey.currentState!.save();
                     // exerciseBloc.createExercise(_exerciseName);
-                    // Navigator.pop(context);
+                    Navigator.pop(context);
                   }
                 },
                 child: Text('Create Account'),
