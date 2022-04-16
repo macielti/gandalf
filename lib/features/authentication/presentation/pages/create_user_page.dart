@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gandalf/features/authentication/presentation/widgets/button_loading_indicator.dart';
 
-class LoginPage extends StatelessWidget {
-  LoginPage({Key? key}) : super(key: key);
+class CreateUserPage extends StatelessWidget {
+  CreateUserPage({Key? key}) : super(key: key);
 
   final formKey = GlobalKey<FormState>();
 
@@ -10,7 +10,7 @@ class LoginPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Login'),
+        title: Text('Create Account'),
         brightness: Brightness.dark,
       ),
       body: Container(
@@ -21,12 +21,22 @@ class LoginPage extends StatelessWidget {
             children: [
               TextFormField(
                   decoration: InputDecoration(
-                    labelText: 'Username or Email',
-                    hintText: 'example@example.com',
+                    labelText: 'Username',
+                    hintText: 'ednaldo-pereira',
                   ),
                   validator: (value) {
                     if (value!.isEmpty)
-                      return 'You need to provide a proper email or username for this field.';
+                      return 'You need to provide a proper username for this field.';
+                    return null;
+                  }),
+              TextFormField(
+                  decoration: InputDecoration(
+                    labelText: 'Email',
+                    hintText: 'ednaldo-pereira@example.com',
+                  ),
+                  validator: (value) {
+                    if (value!.isEmpty)
+                      return 'You need to provide a proper email for this field.';
                     return null;
                   }),
               TextFormField(
@@ -36,7 +46,11 @@ class LoginPage extends StatelessWidget {
                 ),
                 obscureText: true,
                 validator: (value) {
-                  if (value!.isEmpty) return "You can't use a empty password.";
+                  if (value!.isEmpty) {
+                    return "You can't use a empty password.";
+                  } else if (value.length < 6) {
+                    return "The minimum length for the password is 6 characters.";
+                  }
                   return null;
                 },
               ),
@@ -49,12 +63,8 @@ class LoginPage extends StatelessWidget {
                     // Navigator.pop(context);
                   }
                 },
-                child: Text('Login'),
+                child: Text('Create Account'),
               ),
-              ButtonLoadingIndicator(
-                onPressed: () {},
-                child: Text('Crate account'),
-              )
             ],
           ),
         ),
