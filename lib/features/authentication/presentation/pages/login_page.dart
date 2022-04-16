@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gandalf/features/authentication/presentation/pages/create_user_page.dart';
 import 'package:gandalf/features/authentication/presentation/widgets/button_loading_indicator.dart';
 
 class LoginPage extends StatelessWidget {
@@ -52,7 +53,11 @@ class LoginPage extends StatelessWidget {
                 child: Text('Login'),
               ),
               ButtonLoadingIndicator(
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(context, MaterialPageRoute(builder: (context) {
+                    return CreateUserPage();
+                  }));
+                },
                 child: Text('Crate account'),
               )
             ],
