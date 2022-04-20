@@ -4,6 +4,7 @@ abstract class UserIdentityDataSource {
   Future<void> create(String token);
 }
 
+//TODO: write tests for that class
 class UserIdentityDataSourceImpl implements UserIdentityDataSource {
   UserIdentityDataSourceImpl(this.storage);
 
