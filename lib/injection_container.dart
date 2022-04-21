@@ -16,7 +16,10 @@ final sl = GetIt.instance;
 
 Future<void> init() async {
   // --Blocs
-  sl.registerFactory(() => UserBloc(sl()));
+  sl.registerFactory(() => UserBloc(
+        createUserUsecase: sl(),
+        createUserIdentityUsecase: sl(),
+      ));
 
   // --Use cases
   sl.registerLazySingleton(() => CreateUserIdentity(sl()));
