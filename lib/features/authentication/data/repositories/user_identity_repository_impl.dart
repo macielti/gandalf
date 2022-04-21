@@ -17,7 +17,7 @@ class UserIdentityRepositoryImpl implements UserIdentityRepository {
 
   //TODO: write tests for that method
   @override
-  Future<Either<Failure, UserIdentity>> fetch() async {
+  Future<Either<Failure, UserIdentity?>> fetch() async {
     return Right(await dataSource.fetch());
   }
 }

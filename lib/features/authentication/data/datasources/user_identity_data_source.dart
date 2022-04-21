@@ -4,7 +4,7 @@ import 'package:gandalf/features/authentication/data/models/user_identity.dart';
 abstract class UserIdentityDataSource {
   Future<void> create(String token);
 
-  Future<UserIdentityModel> fetch();
+  Future<UserIdentityModel?> fetch();
 }
 
 class UserIdentityDataSourceImpl implements UserIdentityDataSource {
@@ -18,8 +18,9 @@ class UserIdentityDataSourceImpl implements UserIdentityDataSource {
   }
 
   @override
-  Future<UserIdentityModel> fetch() async {
+  Future<UserIdentityModel?> fetch() async {
     final String? token = await storage.read(key: 'token');
-    return UserIdentityModel.fromJWToken(token!);
+    if (token != null) return UserIdentityModel.fromJWToken(token);
+    return null;
   }
 }

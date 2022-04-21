@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gandalf/features/authentication/presentation/bloc/user_bloc.dart';
 import 'package:gandalf/features/authentication/presentation/widgets/button_loading_indicator.dart';
+import 'package:provider/provider.dart';
 
 class CreateUserPage extends StatefulWidget {
   const CreateUserPage({Key? key}) : super(key: key);
@@ -75,16 +77,23 @@ class _CreateUserPageState extends State<CreateUserPage> {
                 },
               ),
               SizedBox(height: 10),
-              ButtonLoadingIndicator(
-                onPressed: () {
-                  if (formKey.currentState!.validate()) {
-                    formKey.currentState!.save();
-                    // exerciseBloc.createExercise(_exerciseName);
-                    Navigator.pop(context);
-                  }
-                },
-                child: Text('Create Account'),
-              ),
+              Consumer<UserBloc>(builder: (context, userBloc, _) {
+                return ButtonLoadingIndicator(
+                  loading: userBloc.state is Loading,
+                  onPressed: () async {
+                    if (formKey.currentState!.validate()) {
+                      formKey.currentState!.save();
+                      final userIdentity = await userBloc.createAccount(
+                          username: _username,
+                          email: _email,
+                          password: _password);
+                      debugPrint(userIdentity.toString());
+                      if (userIdentity != null) Navigator.pop(context);
+                    }
+                  },
+                  child: Text('Create Account'),
+                );
+              }),
             ],
           ),
         ),

@@ -14,7 +14,9 @@ class UserBloc extends ChangeNotifier {
     required this.createUserUsecase,
     required this.createUserIdentityUsecase,
     required this.fetchUserIdentityUsecase,
-  });
+  }) {
+    fetchUserIdentity();
+  }
 
   final create_user.CreateUser createUserUsecase;
   final create_user_identity.CreateUserIdentity createUserIdentityUsecase;
@@ -22,9 +24,13 @@ class UserBloc extends ChangeNotifier {
 
   UserState _state = Empty();
 
-  late UserIdentity _userIdentity;
+  late UserIdentity? _userIdentity;
 
-  void createAccount({
+  UserState get state => _state;
+
+  UserIdentity? get exercises => _userIdentity;
+
+  Future<UserIdentity?> createAccount({
     required String username,
     required String email,
     required String password,
@@ -34,17 +40,20 @@ class UserBloc extends ChangeNotifier {
     final params = create_user.Params(
         username: username, email: email, password: password);
     _userIdentity = (await createUserUsecase(params)) as UserIdentity;
-    final userIdentityParams = create_user_identity.Params(_userIdentity.token);
+    final userIdentityParams =
+        create_user_identity.Params(_userIdentity!.token);
     await createUserIdentityUsecase(userIdentityParams);
     _state = Loaded();
     notifyListeners();
+    return _userIdentity;
   }
 
   void fetchUserIdentity() async {
     _state = Loading();
     notifyListeners();
     final noParams = NoParams();
-    _userIdentity = (await fetchUserIdentityUsecase(noParams)) as UserIdentity;
+    _userIdentity = (await fetchUserIdentityUsecase(noParams))
+        .fold((failure) => null, (userIdentity) => userIdentity);
     _state = Loaded();
     notifyListeners();
   }
