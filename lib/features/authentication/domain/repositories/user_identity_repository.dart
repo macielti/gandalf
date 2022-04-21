@@ -5,6 +5,5 @@ import 'package:gandalf/features/authentication/domain/entities/user_identity.da
 abstract class UserIdentityRepository {
   Future<Either<Failure, Null>> create(String token);
 
-  //TODO: write tests for that method
   Future<Either<Failure, UserIdentity>> fetch();
 }
