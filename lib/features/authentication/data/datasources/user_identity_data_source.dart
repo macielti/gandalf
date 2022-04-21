@@ -1,10 +1,12 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:gandalf/features/authentication/data/models/user_identity.dart';
 
 abstract class UserIdentityDataSource {
   Future<void> create(String token);
+
+  Future<UserIdentityModel> fetch();
 }
 
-//TODO: write tests for that class
 class UserIdentityDataSourceImpl implements UserIdentityDataSource {
   UserIdentityDataSourceImpl(this.storage);
 
@@ -13,5 +15,12 @@ class UserIdentityDataSourceImpl implements UserIdentityDataSource {
   @override
   Future<void> create(String token) async {
     storage.write(key: 'token', value: token);
+  }
+
+  //TODO: write tests for that method
+  @override
+  Future<UserIdentityModel> fetch() async {
+    final String? token = await storage.read(key: 'token');
+    return UserIdentityModel.fromJWToken(token!);
   }
 }

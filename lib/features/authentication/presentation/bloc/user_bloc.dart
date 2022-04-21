@@ -34,6 +34,8 @@ class UserBloc extends ChangeNotifier {
     _state = Loaded();
     notifyListeners();
   }
+
+  void fetchUserIdentity() {}
 }
 
 @immutable
