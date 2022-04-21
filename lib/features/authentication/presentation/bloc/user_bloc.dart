@@ -1,19 +1,24 @@
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:gandalf/core/usecases/usecase.dart';
 import 'package:gandalf/features/authentication/domain/entities/user_identity.dart';
 import 'package:gandalf/features/authentication/domain/usecases/create_user.dart'
     as create_user;
 import 'package:gandalf/features/authentication/domain/usecases/create_user_identity.dart'
     as create_user_identity;
+import 'package:gandalf/features/authentication/domain/usecases/fetch_user_identity.dart'
+    as fetch_user_identity;
 
 class UserBloc extends ChangeNotifier {
   UserBloc({
     required this.createUserUsecase,
     required this.createUserIdentityUsecase,
+    required this.fetchUserIdentityUsecase,
   });
 
   final create_user.CreateUser createUserUsecase;
   final create_user_identity.CreateUserIdentity createUserIdentityUsecase;
+  final fetch_user_identity.FetchUserIdentity fetchUserIdentityUsecase;
 
   UserState _state = Empty();
 
@@ -35,7 +40,14 @@ class UserBloc extends ChangeNotifier {
     notifyListeners();
   }
 
-  void fetchUserIdentity() {}
+  void fetchUserIdentity() async {
+    _state = Loading();
+    notifyListeners();
+    final noParams = NoParams();
+    _userIdentity = (await fetchUserIdentityUsecase(noParams)) as UserIdentity;
+    _state = Loaded();
+    notifyListeners();
+  }
 }
 
 @immutable

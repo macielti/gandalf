@@ -4,6 +4,7 @@ import 'package:gandalf/features/authentication/data/datasources/user_identity_d
 import 'package:gandalf/features/authentication/data/repositories/user_identity_repository_impl.dart';
 import 'package:gandalf/features/authentication/domain/repositories/user_identity_repository.dart';
 import 'package:gandalf/features/authentication/domain/usecases/create_user_identity.dart';
+import 'package:gandalf/features/authentication/domain/usecases/fetch_user_identity.dart';
 import 'package:gandalf/features/authentication/presentation/bloc/user_bloc.dart';
 import 'package:http/http.dart' as http;
 import 'package:get_it/get_it.dart';
@@ -19,11 +20,13 @@ Future<void> init() async {
   sl.registerFactory(() => UserBloc(
         createUserUsecase: sl(),
         createUserIdentityUsecase: sl(),
+        fetchUserIdentityUsecase: sl(),
       ));
 
   // --Use cases
   sl.registerLazySingleton(() => CreateUserIdentity(sl()));
   sl.registerLazySingleton(() => CreateUser(sl()));
+  sl.registerLazySingleton(() => FetchUserIdentity(sl()));
 
   // --Repositories
   sl.registerLazySingleton<UserIdentityRepository>(
