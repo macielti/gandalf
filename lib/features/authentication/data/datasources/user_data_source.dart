@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:flutter/material.dart';
+import 'package:gandalf/core/config.dart';
 import 'package:gandalf/features/authentication/data/models/user_identity.dart';
 import 'package:http/http.dart' as http;
 
@@ -22,7 +24,7 @@ class UserDataSourceImpl implements UserDataSource {
     required String email,
     required String password,
   }) async {
-    final url = Uri.parse('http://172.18.0.8:8010/users/auth');
+    final url = Uri.parse('${AppConfig.PORTEIRO_BASE_URL}/users');
     final response = await client.post(
       url,
       headers: <String, String>{
