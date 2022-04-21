@@ -1,5 +1,7 @@
+import 'package:dartz/dartz.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:gandalf/features/authentication/data/datasources/user_identity_data_source.dart';
+import 'package:gandalf/features/authentication/data/models/user_identity.dart';
 import 'package:gandalf/features/authentication/data/repositories/user_identity_repository_impl.dart';
 import 'package:mocktail/mocktail.dart';
 
@@ -17,6 +19,18 @@ void main() {
     sut = UserIdentityRepositoryImpl(mockUserIdentityDataSource!);
   });
 
+  final tUsername = 'ednaldo-pereira';
+  final tId = 'random-id';
+  final tRoles = ['admin'];
+  final tToken = 'random-token';
+
+  final UserIdentityModel tUserIdentityModel = UserIdentityModel(
+    username: tUsername,
+    id: tId,
+    roles: tRoles,
+    token: tToken,
+  );
+
   group('create', () {
     test('should create (persist) the user identity token information',
         () async {
@@ -28,5 +42,19 @@ void main() {
 
       verify(() => mockUserIdentityDataSource!.create(token)).called(1);
     });
+  });
+
+  group('fetch', () {
+    test(
+      'should be able to fetch persisted user identity data',
+      () async {
+        when(() => mockUserIdentityDataSource!.fetch())
+            .thenAnswer((_) async => tUserIdentityModel);
+
+        final result = await sut!.fetch();
+
+        expect(result, Right(tUserIdentityModel));
+      },
+    );
   });
 }

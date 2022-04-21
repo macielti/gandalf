@@ -17,7 +17,6 @@ class UserIdentityDataSourceImpl implements UserIdentityDataSource {
     storage.write(key: 'token', value: token);
   }
 
-  //TODO: write tests for that method
   @override
   Future<UserIdentityModel> fetch() async {
     final String? token = await storage.read(key: 'token');
