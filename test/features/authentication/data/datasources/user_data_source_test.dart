@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter_test/flutter_test.dart';
+import 'package:gandalf/core/config.dart';
 import 'package:gandalf/features/authentication/data/datasources/user_data_source.dart';
 import 'package:gandalf/features/authentication/data/models/user_identity.dart';
 import 'package:mocktail/mocktail.dart';
@@ -45,7 +46,7 @@ void main() {
                 id: tId, roles: tRoles, username: tUsername, token: token));
 
         verify(() => mockClient!.post(
-              Uri.parse('http://172.18.0.8:8010/users/auth'),
+              Uri.parse('${AppConfig.PORTEIRO_BASE_URL}/users'),
               headers: <String, String>{
                 'Content-Type': 'application/json; charset=UTF-8',
               },
