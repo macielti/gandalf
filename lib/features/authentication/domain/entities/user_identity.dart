@@ -14,5 +14,5 @@ class UserIdentity extends Equatable {
   final String token;
 
   @override
-  List<Object?> get props => [id, roles, username];
+  List<Object?> get props => [id, roles, username, token];
 }
